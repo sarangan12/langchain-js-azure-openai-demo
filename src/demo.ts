@@ -29,7 +29,7 @@ async function main() {
   const azureAISearchEndpoint: string =
     process.env.AZURE_AI_SEARCH_ENDPOINT ?? "";
   const azureOpenAIEmbeddingsDeploymentName: string =
-    process.env.AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT_NAME ?? "";
+    process.env.AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME ?? "";
   const azureOpenAIApiDeploymentName: string =
     process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME ?? "";
   const azureChatModel: string = process.env.AZURE_CHAT_MODEL ?? "";
@@ -38,7 +38,7 @@ async function main() {
   const conversationHistory: string[] = [];
   const llm = new AzureChatOpenAI({
     azureOpenAIEndpoint,
-    azureOpenAIApiDeploymentName: azureOpenAIEmbeddingsDeploymentName,
+    azureOpenAIApiDeploymentName,
     azureOpenAIApiVersion,
     credentials,
     modelName: azureChatModel,
@@ -50,7 +50,7 @@ async function main() {
   );
   const embeddings = new AzureOpenAIEmbeddings({
     azureOpenAIEndpoint: azureOpenAIEndpoint,
-    azureOpenAIApiDeploymentName,
+    azureOpenAIApiDeploymentName: azureOpenAIEmbeddingsDeploymentName,
     azureOpenAIApiVersion,
     credentials,
   });

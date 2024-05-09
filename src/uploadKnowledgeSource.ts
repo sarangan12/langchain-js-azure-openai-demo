@@ -15,7 +15,7 @@ async function main() {
   const azureOpenAIEndpoint: string =
     process.env.AZURE_OPENAI_API_ENDPOINT ?? "";
   const azureOpenAIApiDeploymentName: string =
-    process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME ?? "";
+    process.env.AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME ?? "";
   const azureOpenAIApiVersion: string =
     process.env.AZURE_OPENAI_API_VERSION ?? "";
   const azureAISearchEndpoint: string =
