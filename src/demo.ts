@@ -2,10 +2,7 @@ import {
   AzureAISearchVectorStore,
   AzureAISearchQueryType,
 } from "@langchain/community/vectorstores/azure_aisearch";
-import {
-  AzureChatOpenAI,
-  AzureOpenAIEmbeddings,
-} from "@langchain/azure-openai";
+import { AzureChatOpenAI, AzureOpenAIEmbeddings } from "@langchain/openai";
 import {
   RunnableSequence,
   RunnablePassthrough,
@@ -21,6 +18,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 async function main() {
+  const bearerTokenProvider = CredentialUtils.getBearerTokenProvider();
   const credentials = CredentialUtils.getAzureCredentials();
   const azureOpenAIEndpoint: string =
     process.env.AZURE_OPENAI_API_ENDPOINT ?? "";
@@ -37,10 +35,9 @@ async function main() {
 
   const conversationHistory: string[] = [];
   const llm = new AzureChatOpenAI({
-    azureOpenAIEndpoint,
     azureOpenAIApiDeploymentName,
     azureOpenAIApiVersion,
-    credentials,
+    azureADTokenProvider: bearerTokenProvider,
     modelName: azureChatModel,
   });
   const searchClient: SearchClient<any> = new SearchClient(
@@ -49,10 +46,9 @@ async function main() {
     credentials
   );
   const embeddings = new AzureOpenAIEmbeddings({
-    azureOpenAIEndpoint: azureOpenAIEndpoint,
     azureOpenAIApiDeploymentName: azureOpenAIEmbeddingsDeploymentName,
     azureOpenAIApiVersion,
-    credentials,
+    azureADTokenProvider: bearerTokenProvider,
   });
 
   // Step 1: Create a Stand Alone Question Prompt

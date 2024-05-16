@@ -3,7 +3,7 @@ import {
   AzureAISearchQueryType,
 } from "@langchain/community/vectorstores/azure_aisearch";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-import { AzureOpenAIEmbeddings } from "@langchain/azure-openai";
+import { AzureOpenAIEmbeddings } from "@langchain/openai";
 import { CredentialUtils } from "./utils/credentialUtils";
 import { StorageBlobProxy } from "./proxies/StorageBlobProxy";
 import { PDFParse } from "./utils/PDFParser";
@@ -11,6 +11,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 async function main() {
+  const bearerTokenProvider = CredentialUtils.getBearerTokenProvider();
   const credentials = CredentialUtils.getAzureCredentials();
   const azureOpenAIEndpoint: string =
     process.env.AZURE_OPENAI_API_ENDPOINT ?? "";
@@ -48,10 +49,9 @@ async function main() {
   const store = await AzureAISearchVectorStore.fromDocuments(
     documents,
     new AzureOpenAIEmbeddings({
-      azureOpenAIEndpoint,
       azureOpenAIApiDeploymentName,
       azureOpenAIApiVersion,
-      credentials,
+      azureADTokenProvider: bearerTokenProvider,
     }),
     {
       endpoint: azureAISearchEndpoint,
