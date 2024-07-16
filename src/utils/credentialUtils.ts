@@ -1,5 +1,5 @@
 import {
-  ClientSecretCredential,
+  AzureCliCredential,
   getBearerTokenProvider,
 } from "@azure/identity";
 
@@ -7,25 +7,33 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 export class CredentialUtils {
-  static getAzureCredentials(): ClientSecretCredential {
+  static getAzureCredentials(): AzureCliCredential {
     const tenantId: string = process.env.AZURE_TENANT_ID ?? "";
-    const clientId: string = process.env.AZURE_CLIENT_ID ?? "";
-    const clientSecret: string = process.env.AZURE_CLIENT_SECRET ?? "";
-    return new ClientSecretCredential(tenantId, clientId, clientSecret);
+    const credentials = new AzureCliCredential({
+      tenantId
+    });
+    return credentials;
   }
 
   static getBearerTokenProvider() {
     const tenantId: string = process.env.AZURE_TENANT_ID ?? "";
-    const clientId: string = process.env.AZURE_CLIENT_ID ?? "";
-    const clientSecret: string = process.env.AZURE_CLIENT_SECRET ?? "";
-    const credentials = new ClientSecretCredential(
-      tenantId,
-      clientId,
-      clientSecret
-    );
+    const credentials = new AzureCliCredential({
+      tenantId
+    });
     return getBearerTokenProvider(
       credentials,
       "https://cognitiveservices.azure.com/.default"
+    );
+  }
+
+  static getBearerTokenProviderForDBConnection() {
+    const tenantId: string = process.env.AZURE_TENANT_ID ?? "";
+    const credentials = new AzureCliCredential({
+      tenantId
+    });
+    return getBearerTokenProvider(
+      credentials,
+      "https://database.windows.net/.default"
     );
   }
 }

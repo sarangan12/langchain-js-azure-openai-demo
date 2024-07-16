@@ -20,8 +20,6 @@ dotenv.config();
 async function main() {
   const bearerTokenProvider = CredentialUtils.getBearerTokenProvider();
   const credentials = CredentialUtils.getAzureCredentials();
-  const azureOpenAIEndpoint: string =
-    process.env.AZURE_OPENAI_API_ENDPOINT ?? "";
   const azureOpenAIApiVersion: string =
     process.env.AZURE_OPENAI_API_VERSION ?? "";
   const azureAISearchEndpoint: string =

@@ -1,7 +1,7 @@
 {
   "name": "build-demo",
   "version": "1.0.0",
-  "description": "Demo for the Build conference 2024",
+  "description": "Demo for langchain scenarios",
   "main": " ",
   "scripts": {
     "clean": "rimraf --glob dist dist-* temp types *.tgz *.log",
@@ -22,14 +22,25 @@
     "@azure/storage-blob": "^12.17.0",
     "@langchain/azure-openai": "^0.0.8",
     "@langchain/openai": "^0.0.31",
+    "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "langchain": "^0.1.36",
+    "mysql": "^2.18.1",
+    "nunjucks": "^3.2.4",
+    "openai": "^4.47.1",
     "pdf-parse": "^1.1.1",
-    "readline-sync": "^1.4.10"
+    "readline-sync": "^1.4.10",
+    "typeorm": "^0.3.20",
+    "typescript": "^5.4.5",
+    "winston": "^3.13.0",
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
+    "@types/mysql": "^2.15.26",
+    "@types/nunjucks": "^3.2.6",
     "@types/pdf-parse": "^1.1.4",
     "@types/readline-sync": "^1.4.8",
+    "@types/xml2js": "^0.4.14",
     "rimraf": "^5.0.5"
   }
 }
